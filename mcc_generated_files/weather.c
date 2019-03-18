@@ -42,7 +42,7 @@
   Section: Variable Definitions
  */
 
-static bit weather_initialized = 0;
+static uint8_t weather_initialized = 0;
 
 /**
   Section: Private function prototypes
@@ -57,17 +57,17 @@ void Weather_initializeClick(void);
 void Weather_readSensors(void) {
     if (!weather_initialized) {
         Weather_initializeClick();
-    }   
-    
+    }
+
     if (DEFAULT_SENSOR_MODE == BME280_FORCED_MODE) {
         BME280_startForcedSensing();
-    }    
-    
-    while(BME280_isMeasuring()); 
+    }
+
+    while(BME280_isMeasuring());
     BME280_readMeasurements();
 }
 
-float Weather_getTemperatureDegC(void) { 
+float Weather_getTemperatureDegC(void) {
     return BME280_getTemperature();
 }
 
@@ -84,17 +84,17 @@ void Weather_gotoSleep(void) {
     weather_initialized = 0;
 }
 
-void Weather_initializeClick(void) {    
+void Weather_initializeClick(void) {
     BME280_reset();
     BME280_readFactoryCalibrationParams();
-    
-    BME280_setStandbyTime(DEFAULT_STANDBY_TIME);                              
-    BME280_setFilterCoefficient(DEFAULT_FILTER_COEFF);                          
-    BME280_setOversamplingTemperature(DEFAULT_TEMP_OSRS);                       
-    BME280_setOversamplingPressure(DEFAULT_PRESS_OSRS);                        
-    BME280_setOversamplingHumidity(DEFAULT_HUM_OSRS);                        
+
+    BME280_setStandbyTime(DEFAULT_STANDBY_TIME);
+    BME280_setFilterCoefficient(DEFAULT_FILTER_COEFF);
+    BME280_setOversamplingTemperature(DEFAULT_TEMP_OSRS);
+    BME280_setOversamplingPressure(DEFAULT_PRESS_OSRS);
+    BME280_setOversamplingHumidity(DEFAULT_HUM_OSRS);
     BME280_setSensorMode(DEFAULT_SENSOR_MODE);
     BME280_initializeSensor();
-    
+
     weather_initialized = 1;
 }

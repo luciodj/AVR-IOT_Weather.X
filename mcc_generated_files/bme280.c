@@ -32,19 +32,19 @@
  */
 
 // Register Addresses
-#define BME280_ID_REG           0xD0 
+#define BME280_ID_REG           0xD0
 #define BME280_RESET_REG        0xE0
 #define BME280_CTRL_HUM_REG     0xF2
-#define BME280_STATUS_REG       0xF3 
-#define BME280_CTRL_MEAS_REG    0xF4   
-#define BME280_CONFIG_REG       0xF5 
+#define BME280_STATUS_REG       0xF3
+#define BME280_CTRL_MEAS_REG    0xF4
+#define BME280_CONFIG_REG       0xF5
 #define BME280_PRESS_MSB_REG    0xF7
 #define BME280_PRESS_LSB_REG    0xF8
-#define BME280_PRESS_XLSB_REG   0xF9 
+#define BME280_PRESS_XLSB_REG   0xF9
 #define BME280_TEMP_MSB_REG     0xFA
-#define BME280_TEMP_LSB_REG     0xFB 
-#define BME280_TEMP_XLSB_REG    0xFC 
-#define BME280_HUM_MSB_REG      0xFD  
+#define BME280_TEMP_LSB_REG     0xFB
+#define BME280_TEMP_XLSB_REG    0xFC
+#define BME280_HUM_MSB_REG      0xFD
 #define BME280_HUM_LSB_REG      0xFE
 
 // Sensor Data Read Bytes
@@ -212,6 +212,10 @@ void BME280_readFactoryCalibrationParams(void) {
     calibParam.dig_H4 = (((int) paramBuff[3]) << 4) | (paramBuff[4] & 0xF);
     calibParam.dig_H5 = (((int) paramBuff[5]) << 4) | (paramBuff[4] >> 4);
     calibParam.dig_H6 = (short) paramBuff[6];
+//    printf("digT:%d, %d, %d\n", calibParam.dig_T1, calibParam.dig_T2, calibParam.dig_T3);
+//    printf("digP:%d, %d, %d\n", calibParam.dig_P1, calibParam.dig_P2, calibParam.dig_P3);
+//    printf("digP:%d, %d, %d\n", calibParam.dig_P4, calibParam.dig_P5, calibParam.dig_P6);
+//    printf("digH:%d, %d, %d\n", calibParam.dig_H1, calibParam.dig_H2, calibParam.dig_H3);
 }
 
 void BME280_setStandbyTime(uint8_t sbtime) {
@@ -272,7 +276,7 @@ void BME280_readMeasurements(void) {
 }
 
 float BME280_getTemperature(void) {
-    float temperature = (float) BME280_compensateTemperature() / 100;
+    float temperature = (float) BME280_compensateTemperature()/100;
     return temperature;
 }
 
@@ -291,9 +295,9 @@ uint8_t BME280_getStatus(void) {
     return bme280_status.statusReg;
 }
 
-/* 
- * Returns temperature in DegC, resolution is 0.01 DegC. 
- * Output value of "5123" equals 51.23 DegC.  
+/*
+ * Returns temperature in DegC, resolution is 0.01 DegC.
+ * Output value of "5123" equals 51.23 DegC.
  */
 static long BME280_compensateTemperature(void) {
     long tempV1, tempV2, t;
@@ -306,9 +310,9 @@ static long BME280_compensateTemperature(void) {
     return t;
 }
 
-/* 
- * Returns pressure in Pa as unsigned 32 bit integer. 
- * Output value of "96386" equals 96386 Pa = 96.386 kPa 
+/*
+ * Returns pressure in Pa as unsigned 32 bit integer.
+ * Output value of "96386" equals 96386 Pa = 96.386 kPa
  */
 static uint32_t BME280_compensatePressure(void) {
     long pressV1, pressV2;
@@ -341,7 +345,7 @@ static uint32_t BME280_compensatePressure(void) {
     return p;
 }
 
-/* 
+/*
  * Returns humidity in %RH as unsigned 32 bit integer in Q22.10 format
  * (22 integer and 10 fractional bits).
  * Output value of "47445" represents 47445/1024 = 46.333 %RH

@@ -26,22 +26,20 @@
 /**
   Section: Included Files
  */
-
-#include <xc.h>
 #include <stdint.h>
 
 /**
   Section: Weather Click Driver APIs
  */
 
-/* 
- * Called to read sensor data   
+/*
+ * Called to read sensor data
  */
 void Weather_readSensors(void);
 
-/* 
- * Return compensated values in deg. Celsius, 
- * kPascals, & %Relative Humidity   
+/*
+ * Return compensated values in deg. Celsius,
+ * kPascals, & %Relative Humidity
  */
 float Weather_getTemperatureDegC(void);
 float Weather_getPressureKPa(void);

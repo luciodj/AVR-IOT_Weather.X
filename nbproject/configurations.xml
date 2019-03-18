@@ -416,7 +416,6 @@
         <itemPath>mcc_generated_files/debug_print.c</itemPath>
         <itemPath>mcc_generated_files/bme280.c</itemPath>
         <itemPath>mcc_generated_files/weather.c</itemPath>
-        <itemPath>mcc_generated_files/weather_example.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
     </logicalFolder>
